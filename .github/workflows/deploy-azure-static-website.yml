@@ -1,0 +1,36 @@
+name: Deploy Azure Storage Static Website
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to $web
+    env:
+      AZURE_STORAGE_CONNECTION_STRING: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+      WEBSITE_INDEX_DOCUMENT: index.html
+      WEBSITE_ERROR_DOCUMENT: error.html
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Enable static website + set index/error
+        run: |
+          az storage blob service-properties update \
+            --connection-string "$AZURE_STORAGE_CONNECTION_STRING" \
+            --static-website \
+            --index-document "$WEBSITE_INDEX_DOCUMENT" \
+            --404-document "$WEBSITE_ERROR_DOCUMENT"
+
+      - name: Upload site files to $web
+        run: |
+          az storage blob upload-batch \
+            --connection-string "$AZURE_STORAGE_CONNECTION_STRING" \
+            --destination '$web' \
+            --source . \
+            --pattern "*.html" \
+            --overwrite
