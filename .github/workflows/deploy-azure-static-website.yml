@@ -12,11 +12,31 @@ jobs:
     name: Deploy to $web
     env:
       AZURE_STORAGE_CONNECTION_STRING: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+      LOGIC_APP_URL: ${{ secrets.LOGIC_APP_URL }}
       WEBSITE_INDEX_DOCUMENT: index.html
       WEBSITE_ERROR_DOCUMENT: error.html
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Inject Logic App URL into index.html
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+
+          url = os.environ.get("LOGIC_APP_URL", "").strip()
+          if not url:
+              raise SystemExit("Missing LOGIC_APP_URL secret")
+
+          path = Path("index.html")
+          content = path.read_text()
+          placeholder = "__LOGIC_APP_URL__"
+          if placeholder not in content:
+              raise SystemExit(f"Placeholder {placeholder} not found in index.html")
+
+          path.write_text(content.replace(placeholder, url))
+          PY
 
       - name: Enable static website + set index/error
         run: |
