@@ -44,7 +44,7 @@
         }
     </script>
     
-    <style>
+    <style type="text/tailwindcss">
         body {
             font-family: 'Lato', sans-serif;
             scroll-behavior: smooth;
@@ -52,8 +52,6 @@
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Playfair Display', serif;
         }
-        .legal-content h2 { @apply text-2xl font-bold text-primary mb-6 mt-12 font-serif; }
-        .legal-content p { @apply mb-4; }
     </style>
 </head>
 <body class="bg-white text-primary antialiased selection:bg-accent selection:text-white">
@@ -129,34 +127,58 @@
             return (
                 <section className="pt-32 pb-24 bg-white min-h-screen">
                     <div className="container mx-auto px-6 lg:px-12 max-w-4xl">
-                        <h1 className="text-4xl md:text-5xl font-bold text-primary mb-12">Impressum</h1>
+                        <div className="mb-16">
+                            <span className="text-accent text-sm font-bold tracking-widest uppercase mb-4 block">Rechtliche Informationen</span>
+                            <h1 className="text-4xl md:text-5xl font-bold text-primary">Impressum</h1>
+                            <div className="w-20 h-1 bg-accent mt-8"></div>
+                        </div>
                         
-                        <div className="legal-content text-gray-600 leading-relaxed font-light text-lg">
-                            <p>Angaben gemäß § 5 DDG:</p>
-                            
-                            <p className="font-medium text-primary text-xl mb-6">
-                                <strong>DCD-Immoberatung UG</strong> (haftungsbeschränkt)<br />
-                                Iltisfang 16<br />
-                                14532 Kleinmachnow
-                            </p>
-
-                            <p className="mb-6">
-                                Vertreten durch: Ingo Wagner
-                            </p>
-
-                            <div className="space-y-2 mb-8">
-                                <p>E-Mail: <a href="mailto:info@dcd-immoberatung.de" className="text-accent hover:underline">info@dcd-immoberatung.de</a></p>
-                                <p>Web: <a href="https://www.dcd-immoberatung.de/" className="text-accent hover:underline">https://www.dcd-immoberatung.de/</a></p>
-                                <p>Tel.: +49 (0) 173-9480997</p>
+                        <div className="text-gray-600 leading-relaxed font-light text-lg space-y-12">
+                            <div>
+                                <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Angaben gemäß § 5 TMG</h2>
+                                <p className="text-2xl text-primary font-serif italic mb-2">
+                                    DCD-Immoberatung UG <span className="text-lg font-sans not-italic text-gray-400">(haftungsbeschränkt)</span>
+                                </p>
+                                <p className="text-xl">
+                                    Iltisfang 16<br />
+                                    14532 Berlin
+                                </p>
                             </div>
 
-                            <div className="p-6 bg-gray-50 border border-gray-100 rounded-sm italic">
-                                <p className="mb-0">Angaben zum Handelsregistereintrag und Umsatzsteuer-Identifikationsnummer folgen (derzeit in Gründung).</p>
+                            <div className="grid md:grid-cols-2 gap-12 pt-12 border-t border-gray-100">
+                                <div>
+                                    <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Kontakt</h3>
+                                    <div className="space-y-3">
+                                        <p className="flex items-center gap-3">
+                                            <Icon name="mail" size={18} className="text-accent" />
+                                            <a href="mailto:info@dcd-immoberatung.de" className="hover:text-accent transition-colors">info@dcd-immoberatung.de</a>
+                                        </p>
+                                        <p className="flex items-center gap-3">
+                                            <Icon name="phone" size={18} className="text-accent" />
+                                            <a href="tel:+491739480997" className="hover:text-accent transition-colors">+49 (0) 173 9480997</a>
+                                        </p>
+                                        <p className="flex items-center gap-3">
+                                            <Icon name="globe" size={18} className="text-accent" />
+                                            <a href="https://www.dcd-immoberatung.de/" className="hover:text-accent transition-colors">www.dcd-immoberatung.de</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Register & USt-ID</h3>
+                                    <p className="italic text-gray-500">
+                                        Angaben zum Handelsregistereintrag und Umsatzsteuer-Identifikationsnummer folgen (derzeit in Gründung).
+                                    </p>
+                                </div>
                             </div>
 
-                            <div className="pt-12 border-t border-gray-100 mt-12">
-                                <h2 className="mt-0">Streitbeilegung</h2>
-                                <p>
+                            <div className="pt-12 border-t border-gray-100">
+                                <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">Streitschlichtung</h3>
+                                <p className="text-sm leading-relaxed">
+                                    Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: 
+                                    <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline ml-1">https://ec.europa.eu/consumers/odr</a>.
+                                </p>
+                                <p className="text-sm mt-4 italic">
                                     Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
                                 </p>
                             </div>
@@ -182,7 +204,6 @@
                         <div className="flex gap-8">
                             <a href="impressum.html" className="text-primary font-bold text-xs uppercase tracking-widest transition-colors">Impressum</a>
                             <a href="datenschutz.html" className="text-gray-400 hover:text-primary text-xs uppercase tracking-widest transition-colors">Datenschutz</a>
-                            <a href="agb.html" className="text-gray-400 hover:text-primary text-xs uppercase tracking-widest transition-colors">AGB</a>
                         </div>
                     </div>
                 </footer>
