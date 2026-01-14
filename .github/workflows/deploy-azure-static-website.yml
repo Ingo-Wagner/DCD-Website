@@ -54,3 +54,11 @@ jobs:
             --source . \
             --pattern "*.html" \
             --overwrite
+
+      - name: Upload assets to $web/assets
+        run: |
+          az storage blob upload-batch \
+            --connection-string "$AZURE_STORAGE_CONNECTION_STRING" \
+            --destination '$web/assets' \
+            --source assets \
+            --overwrite
